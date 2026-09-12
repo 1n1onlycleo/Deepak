@@ -1,1 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 #shop > .lead{display:none}
+
+:root {
+	--trend-bg: #090909;
+	--trend-panel: #141414;
+	--trend-line: #292929;
+	--trend-text: #f5f5f0;
+	--trend-muted: #999;
+	--trend-accent: #c8ff32;
+}
+
+body {
+	background: radial-gradient(circle at 82% 0%, #263800 0%, transparent 28%), var(--trend-bg);
+	color: var(--trend-text);
+	font-family: 'Space Grotesk', sans-serif;
+}
+
+nav {
+	border-bottom-color: var(--trend-line);
+}
+
+nav b {
+	font-size: 0;
+	color: var(--trend-accent);
+	letter-spacing: 1px;
+}
+
+nav b::after {
+	content: 'THE GENZ J FASHION';
+	font-size: 21px;
+}
+
+.hero > div:first-child {
+	animation: trendHeroIn .8s ease both;
+}
+
+.heroimg {
+	animation: trendImageIn 1s .15s ease both;
+}
+
+.heroimg img {
+	border-radius: 24px;
+	box-shadow: 0 28px 70px #0009;
+}
+
+.heroimg span {
+	border-color: var(--trend-accent);
+}
+
+.hero h1 {
+	letter-spacing: -4px;
+}
+
+.btn,
+.pills .active {
+	background: var(--trend-accent);
+	color: #080808;
+}
+
+.btn,
+.pills button,
+.wa,
+.cardwa,
+.cta {
+	transition: transform .25s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
+}
+
+.btn:hover,
+.wa:hover,
+.cardwa:hover,
+.cta:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 28px #c8ff3245;
+}
+
+.auto {
+	border-color: #536b19;
+	color: var(--trend-accent);
+}
+
+.pills button:hover {
+	border-color: var(--trend-accent);
+	color: var(--trend-accent);
+	transform: translateY(-2px);
+}
+
+.card {
+	background: var(--trend-panel);
+	border-color: var(--trend-line);
+	transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+	animation: trendCardIn .6s both;
+}
+
+.card:nth-child(2) { animation-delay: 70ms; }
+.card:nth-child(3) { animation-delay: 140ms; }
+.card:nth-child(4) { animation-delay: 210ms; }
+
+.card:hover {
+	transform: translateY(-8px);
+	border-color: var(--trend-accent);
+	box-shadow: 0 20px 45px #000b;
+}
+
+.card img {
+	transition: transform .5s ease;
+}
+
+.card:hover img {
+	transform: scale(1.06);
+}
+
+.card h3 {
+	color: var(--trend-accent);
+}
+
+@keyframes trendHeroIn {
+	from { opacity: 0; transform: translateY(28px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes trendImageIn {
+	from { opacity: 0; transform: scale(.94) rotate(2deg); }
+	to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes trendCardIn {
+	from { opacity: 0; transform: translateY(24px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: .01ms !important;
+		transition-duration: .01ms !important;
+	}
+}
