@@ -72,6 +72,31 @@ function updateHeroBadge() {
   badge.dataset.updated = 'true';
 }
 
+function loadTopHeroImage() {
+  const image = document.querySelector('.heroimg img');
+  if (!image || image.dataset.topLoaded === 'true') return;
+
+  fetch('/api/products')
+    .then((response) => response.json())
+    .then((items) => {
+      const topImages = items.filter((item) => item.category === 'top');
+      if (!topImages.length) return;
+
+      let index = 0;
+      const showTopImage = () => {
+        const topImage = topImages[index];
+        image.src = topImage.url;
+        image.alt = `Top design ${index + 1}`;
+        index = (index + 1) % topImages.length;
+      };
+
+      showTopImage();
+      window.setInterval(showTopImage, 5000);
+      image.dataset.topLoaded = 'true';
+    })
+    .catch(console.error);
+}
+
 function addSportsInfo() {
   const shop = document.querySelector('#shop');
   const grid = shop?.querySelector('.grid');
@@ -222,6 +247,7 @@ function initSportsEnhancements() {
   addSportBadges();
   addMatchdayMessage();
   updateHeroBadge();
+  loadTopHeroImage();
   addSportsInfo();
   addFolderTabs();
   addFeaturedSquad();
@@ -230,6 +256,7 @@ function initSportsEnhancements() {
   window.setInterval(() => {
     addSportBadges();
     updateHeroBadge();
+    loadTopHeroImage();
     addCatalogControls();
     addSportsInfo();
     addFolderTabs();
