@@ -176,6 +176,8 @@ function initSportsEnhancements() {
   window.setInterval(() => {
     addSportBadges();
     addCatalogControls();
+    addSportsInfo();
+    addFeaturedSquad();
   }, 1000);
 }
 
