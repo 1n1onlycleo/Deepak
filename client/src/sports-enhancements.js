@@ -75,7 +75,7 @@ function addSportsInfo() {
 }
 
 function addFeaturedSquad() {
-  const footer = document.querySelector('.footer');
+  const footer = document.querySelector('footer');
   if (!footer || document.querySelector('.featured-squad')) return;
 
   const section = document.createElement('section');
