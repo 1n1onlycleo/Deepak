@@ -84,6 +84,38 @@ function addFeaturedSquad() {
   footer.insertAdjacentElement('beforebegin', section);
 }
 
+function addCatalogControls() {
+  const grid = document.querySelector('#shop .grid');
+  if (!grid) return;
+
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const limit = Number(grid.dataset.visibleLimit || 12);
+  cards.forEach((card, index) => {
+    card.style.display = index < limit ? '' : 'none';
+  });
+
+  let button = document.querySelector('.load-more-designs');
+  if (cards.length <= limit) {
+    button?.remove();
+    return;
+  }
+
+  if (!button) {
+    button = document.createElement('button');
+    button.className = 'load-more-designs';
+    button.type = 'button';
+    button.textContent = 'Load More Designs';
+    grid.insertAdjacentElement('afterend', button);
+    button.addEventListener('click', () => {
+      grid.dataset.visibleLimit = String(Number(grid.dataset.visibleLimit || 12) + 12);
+      addCatalogControls();
+    });
+  }
+
+  button.textContent = limit >= cards.length ? 'All Designs Loaded' : 'Load More Designs';
+  button.disabled = limit >= cards.length;
+}
+
 function addBuildKit() {
   if (document.querySelector('.kit-launcher')) return;
 
@@ -139,8 +171,12 @@ function initSportsEnhancements() {
   addMatchdayMessage();
   addSportsInfo();
   addFeaturedSquad();
+  addCatalogControls();
   addBuildKit();
-  window.setInterval(addSportBadges, 1000);
+  window.setInterval(() => {
+    addSportBadges();
+    addCatalogControls();
+  }, 1000);
 }
 
 if (document.readyState === 'loading') {
