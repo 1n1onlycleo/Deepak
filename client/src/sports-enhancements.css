@@ -61,6 +61,11 @@
   letter-spacing: 1px;
 }
 
+.card img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
 .sports-info {
   display: flex;
   align-items: center;
