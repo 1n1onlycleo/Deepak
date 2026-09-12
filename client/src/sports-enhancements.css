@@ -19,6 +19,33 @@
   transform: translateY(0);
 }
 
+.matchday-ribbon {
+  display: flex;
+  gap: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 8px 5%;
+  border-bottom: 1px solid #3b2a22;
+  background: #120e0c;
+  color: #d7b8a9;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.matchday-ribbon span {
+  flex: 0 0 auto;
+}
+
+.matchday-ribbon span:first-child {
+  color: var(--trend-accent);
+}
+
+.matchday-ribbon i {
+  color: var(--trend-accent);
+  font-style: normal;
+}
+
 .sport-badge {
   position: absolute;
   top: 14px;

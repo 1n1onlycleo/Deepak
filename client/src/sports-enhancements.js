@@ -72,6 +72,16 @@ function updateHeroBadge() {
   badge.dataset.updated = 'true';
 }
 
+function addMatchdayRibbon() {
+  const nav = document.querySelector('nav');
+  if (!nav || document.querySelector('.matchday-ribbon')) return;
+
+  const ribbon = document.createElement('div');
+  ribbon.className = 'matchday-ribbon';
+  ribbon.innerHTML = '<span>BUILT FOR MATCHDAY</span><i>•</i><span>CUSTOM NAMES + NUMBERS</span><i>•</i><span>MADE FOR YOUR SQUAD</span><i>•</i><span>TEAM ORDERS WELCOME</span>';
+  nav.insertAdjacentElement('afterend', ribbon);
+}
+
 function loadTopHeroImage() {
   const image = document.querySelector('.heroimg img');
   if (!image || image.dataset.topLoaded === 'true') return;
@@ -118,7 +128,11 @@ function addFolderTabs() {
   const labels = (category) => category.split(/[-_\s]+/).filter(Boolean).map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
   const current = pills.dataset.folderTabs;
   const signature = categories.join('|');
-  const expectedLabels = ['All', ...categories.map(labels)].join('|');
+  const counts = categories.reduce((result, category) => {
+    result[category] = cards.filter((card) => card.querySelector('.body small')?.textContent?.trim() === category).length;
+    return result;
+  }, {});
+  const expectedLabels = [`All ${cards.length}`, ...categories.map((category) => `${labels(category)} ${counts[category]}`)].join('|');
   const visibleLabels = Array.from(pills.querySelectorAll('button')).map((button) => button.textContent.trim()).join('|');
   if (current === signature && visibleLabels === expectedLabels) return;
 
@@ -130,7 +144,7 @@ function addFolderTabs() {
       card.style.display = category === 'all' || card.querySelector('.body small')?.textContent?.trim() === category ? '' : 'none';
     });
   };
-  [['all', 'All'], ...categories.map((category) => [category, labels(category)])].forEach(([key, label], index) => {
+  [['all', `All ${cards.length}`], ...categories.map((category) => [category, `${labels(category)} ${counts[category]}`])].forEach(([key, label], index) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = label;
@@ -246,6 +260,7 @@ function addBuildKit() {
 function initSportsEnhancements() {
   addSportBadges();
   addMatchdayMessage();
+  addMatchdayRibbon();
   updateHeroBadge();
   loadTopHeroImage();
   addSportsInfo();
@@ -255,6 +270,7 @@ function initSportsEnhancements() {
   addBuildKit();
   window.setInterval(() => {
     addSportBadges();
+    addMatchdayRibbon();
     updateHeroBadge();
     loadTopHeroImage();
     addCatalogControls();
