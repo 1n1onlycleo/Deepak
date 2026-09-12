@@ -22,6 +22,24 @@ function addSportBadges() {
     badge.textContent = label;
     card.appendChild(badge);
   });
+
+  document.querySelectorAll('.card').forEach((card) => {
+    const description = card.querySelector('.body p');
+    const category = card.querySelector('.body small')?.textContent?.trim().toLowerCase() || 'team';
+    if (!description || description.dataset.enhanced === 'true') return;
+
+    const copy = {
+      football: 'Match-ready energy for your squad.',
+      cricket: 'Built for the crease, made for your team.',
+      school: 'Bring your school colours to game day.',
+      party: 'Make your squad the main event.',
+      occasion: 'Custom style for every celebration.',
+      events: 'Stand out together at every event.',
+    }[category] || 'Built to make your team stand out.';
+
+    description.textContent = `${copy} Ask us for sizes and availability.`;
+    description.dataset.enhanced = 'true';
+  });
 }
 
 function addMatchdayMessage() {
