@@ -1,0 +1,235 @@
+.matchday-line,
+.section-kicker {
+  color: var(--trend-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.matchday-line {
+  min-height: 18px;
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.matchday-line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sport-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  padding: 7px 9px;
+  border: 1px solid var(--trend-accent);
+  border-radius: 5px;
+  background: #090909dd;
+  color: var(--trend-accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.sports-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 20px 0 26px;
+  padding: 15px 18px;
+  border-left: 4px solid var(--trend-accent);
+  background: #17120f;
+  color: #e7d8d1;
+  font-size: 13px;
+}
+
+.sports-info strong {
+  color: var(--trend-accent);
+  letter-spacing: 1px;
+}
+
+.sports-info span::before {
+  content: '/';
+  margin-right: 18px;
+  color: var(--trend-accent);
+}
+
+.featured-squad {
+  border-top: 1px solid var(--trend-line);
+}
+
+.squad-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.squad-grid article {
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+  border: 1px solid var(--trend-line);
+  background: linear-gradient(135deg, #18120f, #111);
+  transition: transform .25s ease, border-color .25s ease;
+}
+
+.squad-grid article:hover {
+  transform: translateY(-6px);
+  border-color: var(--trend-accent);
+}
+
+.squad-grid b {
+  color: var(--trend-accent);
+  font-size: 14px;
+}
+
+.squad-grid span {
+  color: var(--trend-muted);
+  font-size: 13px;
+}
+
+.kit-launcher {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--trend-accent);
+  background: var(--trend-accent);
+  color: #080808;
+  padding: 13px 17px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 6px 0 #0008, 0 16px 35px #0009;
+}
+
+.kit-launcher span {
+  font-size: 20px;
+  line-height: 12px;
+}
+
+.kit-launcher:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 9px 0 #0008, 0 22px 40px #000b;
+}
+
+.kit-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: #000b;
+  backdrop-filter: blur(8px);
+}
+
+.kit-modal[hidden] {
+  display: none;
+}
+
+.kit-dialog {
+  position: relative;
+  width: min(520px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  padding: 30px;
+  border: 1px solid var(--trend-accent);
+  background: #14100e;
+  box-shadow: 0 30px 90px #000;
+}
+
+.kit-dialog h2 {
+  margin: 8px 0;
+  color: #fff;
+}
+
+.kit-dialog > p {
+  color: var(--trend-muted);
+}
+
+.kit-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  box-shadow: none;
+}
+
+.kit-form {
+  display: grid;
+  gap: 13px;
+  margin-top: 22px;
+}
+
+.kit-form label {
+  display: grid;
+  gap: 6px;
+  color: #d9cbc4;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.kit-form input,
+.kit-form select,
+.kit-form textarea {
+  width: 100%;
+  border: 1px solid #49342b;
+  border-radius: 6px;
+  background: #0c0c0c;
+  color: #fff;
+  padding: 11px 12px;
+  font: inherit;
+}
+
+.kit-form input:focus,
+.kit-form select:focus,
+.kit-form textarea:focus {
+  outline: 2px solid var(--trend-accent);
+  outline-offset: 1px;
+}
+
+.kit-submit {
+  margin-top: 8px;
+  border: 1px solid var(--trend-accent);
+  background: var(--trend-accent);
+  color: #080808;
+  padding: 13px 16px;
+  font-weight: 700;
+}
+
+.kit-submit span {
+  margin-left: 8px;
+  font-size: 18px;
+}
+
+@media (max-width: 760px) {
+  .squad-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .kit-launcher {
+    right: 14px;
+    bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .matchday-line,
+  .squad-grid article,
+  .kit-launcher {
+    transition: none;
+  }
+}

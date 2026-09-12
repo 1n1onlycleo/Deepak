@@ -1,4 +1,4 @@
-import React,{useEffect,useState}from'react';import{createRoot}from'react-dom/client';import{MessageCircle,ArrowRight,Sparkles}from'lucide-react';import'./styles.css';import'./hide-upload-hint.css';
+import React,{useEffect,useState}from'react';import{createRoot}from'react-dom/client';import{MessageCircle,ArrowRight,Sparkles}from'lucide-react';import'./styles.css';import'./hide-upload-hint.css';import'./sports-enhancements.css';import'./sports-enhancements.js';
 const API=import.meta.env.VITE_API_URL||'';const WHATSAPP_NUMBER='919769131599';
 const productApiUrl=API?`${API.replace(/\/$/,'')}/api/products`:'/api/products';
 const imageSrc=(url)=>url.startsWith('data:')?url:API?`${API.replace(/\/$/,'')}${url}`:url;
