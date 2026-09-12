@@ -286,3 +286,147 @@
     transition: none;
   }
 }
+
+@media (max-width: 700px) {
+  nav {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 13px 16px;
+  }
+
+  nav b::after {
+    font-size: 17px;
+  }
+
+  nav .links {
+    order: 3;
+    width: 100%;
+    gap: 18px;
+    overflow-x: auto;
+    padding-bottom: 3px;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  nav .links::-webkit-scrollbar {
+    display: none;
+  }
+
+  nav .wa {
+    margin-left: auto;
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .matchday-ribbon {
+    padding: 7px 16px;
+    gap: 13px;
+    font-size: 9px;
+  }
+
+  .hero,
+  .section {
+    padding: 42px 16px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 16vw, 72px);
+    letter-spacing: -3px;
+  }
+
+  .hero p,
+  .lead {
+    font-size: 15px;
+  }
+
+  .heroimg img {
+    aspect-ratio: 4 / 5;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .buttons .btn {
+    text-align: center;
+  }
+
+  .section h2 {
+    font-size: 32px;
+    letter-spacing: -1px;
+  }
+
+  .pills {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    margin-right: -16px;
+    padding-right: 16px;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+
+  .pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pills button {
+    flex: 0 0 auto;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .card {
+    border-radius: 14px;
+  }
+
+  .card .body {
+    padding: 12px;
+  }
+
+  .card h3 {
+    font-size: 17px;
+  }
+
+  .card p {
+    min-height: 58px;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .cardwa {
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .sports-info {
+    gap: 9px;
+    padding: 13px;
+    font-size: 11px;
+  }
+
+  .sports-info span::before {
+    margin-right: 9px;
+  }
+
+  .kit-launcher {
+    right: 12px;
+    bottom: 12px;
+    padding: 11px 13px;
+    font-size: 12px;
+  }
+
+  .kit-dialog {
+    padding: 24px 18px;
+  }
+}
