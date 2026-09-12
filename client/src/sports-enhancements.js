@@ -63,6 +63,15 @@ function addMatchdayMessage() {
   window.setInterval(update, 3200);
 }
 
+function updateHeroBadge() {
+  const badge = document.querySelector('.heroimg span');
+  if (!badge || badge.dataset.updated === 'true') return;
+
+  const textNode = Array.from(badge.childNodes).find((node) => node.nodeType === Node.TEXT_NODE);
+  if (textNode) textNode.textContent = ' MATCHDAY SPOTLIGHT';
+  badge.dataset.updated = 'true';
+}
+
 function addSportsInfo() {
   const shop = document.querySelector('#shop');
   const grid = shop?.querySelector('.grid');
@@ -212,6 +221,7 @@ function addBuildKit() {
 function initSportsEnhancements() {
   addSportBadges();
   addMatchdayMessage();
+  updateHeroBadge();
   addSportsInfo();
   addFolderTabs();
   addFeaturedSquad();
@@ -219,6 +229,7 @@ function initSportsEnhancements() {
   addBuildKit();
   window.setInterval(() => {
     addSportBadges();
+    updateHeroBadge();
     addCatalogControls();
     addSportsInfo();
     addFolderTabs();
