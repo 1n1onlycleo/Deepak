@@ -4,9 +4,13 @@ import path from 'path';
 const IMAGES_DIR = path.join(process.cwd(), 'server', 'images');
 const ALLOWED = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif']);
 
-function titleFromFileName(fileName) {
+function normalizeCategory(folder) {
+  return folder.toLowerCase() === 'ocassion' ? 'occasion' : folder.toLowerCase();
+}
+
+function titleFromFileName(fileName, index) {
   const match = fileName.match(/(?:jerysey|jersey)[-_]?(\d+)\.[^.]+$/i);
-  return match ? `Design ${match[1]}` : 'Design';
+  return match ? `Design ${match[1]}` : `Design ${index + 1}`;
 }
 
 function toDataUrl(buffer, fileName) {
@@ -17,30 +21,30 @@ function toDataUrl(buffer, fileName) {
 
 export default async function handler(req, res) {
   try {
-    const files = await fs.readdir(IMAGES_DIR, { withFileTypes: true });
+    const folders = (await fs.readdir(IMAGES_DIR, { withFileTypes: true }))
+      .filter((entry) => entry.isDirectory())
+      .sort((a, b) => a.name.localeCompare(b.name));
+    const items = [];
 
-    const items = await Promise.all(
-      files
+    for (const folder of folders) {
+      const files = (await fs.readdir(path.join(IMAGES_DIR, folder.name), { withFileTypes: true }))
         .filter((entry) => entry.isFile() && ALLOWED.has(path.extname(entry.name).toLowerCase()))
-        .map(async (entry) => {
-          const filePath = path.join(IMAGES_DIR, entry.name);
-          const stats = await fs.stat(filePath);
-          const buffer = await fs.readFile(filePath);
+        .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 
-          return {
-            id: entry.name,
-            title: titleFromFileName(entry.name),
-            category: 'football',
-            url: toDataUrl(buffer, entry.name),
-            mtime: stats.mtimeMs,
-          };
-        })
-    );
-
-    const sorted = items.sort((a, b) => b.mtime - a.mtime);
+      for (const [index, file] of files.entries()) {
+        const filePath = path.join(IMAGES_DIR, folder.name, file.name);
+        const buffer = await fs.readFile(filePath);
+        items.push({
+          id: `${folder.name}/${file.name}`,
+          title: titleFromFileName(file.name, index),
+          category: normalizeCategory(folder.name),
+          url: toDataUrl(buffer, file.name),
+        });
+      }
+    }
 
     res.setHeader('Access-Control-Allow-Origin', '*');
-    return res.status(200).json(sorted.map(({ id, title, category, url }) => ({ id, title, category, url })));
+    return res.status(200).json(items);
   } catch (error) {
     console.error('products api error', error);
     res.setHeader('Access-Control-Allow-Origin', '*');

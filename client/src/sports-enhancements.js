@@ -74,6 +74,40 @@ function addSportsInfo() {
   grid.insertAdjacentElement('beforebegin', info);
 }
 
+function addFolderTabs() {
+  const pills = document.querySelector('#shop .pills');
+  const grid = document.querySelector('#shop .grid');
+  const cards = Array.from(document.querySelectorAll('#shop .card'));
+  if (!pills || !grid || !cards.length) return;
+
+  const categories = Array.from(new Set(cards.map((card) => card.querySelector('.body small')?.textContent?.trim()).filter(Boolean)));
+  const labels = (category) => category.split(/[-_\s]+/).filter(Boolean).map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
+  const current = pills.dataset.folderTabs;
+  const signature = categories.join('|');
+  if (current === signature) return;
+
+  pills.dataset.folderTabs = signature;
+  pills.innerHTML = '';
+  const show = (category) => {
+    grid.dataset.folderFilter = category;
+    cards.forEach((card) => {
+      card.style.display = category === 'all' || card.querySelector('.body small')?.textContent?.trim() === category ? '' : 'none';
+    });
+  };
+  [['all', 'All'], ...categories.map((category) => [category, labels(category)])].forEach(([key, label], index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = label;
+    button.className = index === 0 ? 'active' : '';
+    button.addEventListener('click', () => {
+      pills.querySelectorAll('button').forEach((item) => item.classList.remove('active'));
+      button.classList.add('active');
+      show(key);
+    });
+    pills.appendChild(button);
+  });
+}
+
 function addFeaturedSquad() {
   const footer = document.querySelector('footer');
   if (!footer || document.querySelector('.featured-squad')) return;
@@ -89,6 +123,13 @@ function addCatalogControls() {
   if (!grid) return;
 
   const cards = Array.from(grid.querySelectorAll('.card'));
+  if (grid.dataset.folderFilter && grid.dataset.folderFilter !== 'all') {
+    cards.forEach((card) => {
+      card.style.display = card.querySelector('.body small')?.textContent?.trim() === grid.dataset.folderFilter ? '' : 'none';
+    });
+    document.querySelector('.load-more-designs')?.remove();
+    return;
+  }
   const limit = Number(grid.dataset.visibleLimit || 12);
   cards.forEach((card, index) => {
     card.style.display = index < limit ? '' : 'none';
@@ -170,6 +211,7 @@ function initSportsEnhancements() {
   addSportBadges();
   addMatchdayMessage();
   addSportsInfo();
+  addFolderTabs();
   addFeaturedSquad();
   addCatalogControls();
   addBuildKit();
@@ -177,6 +219,7 @@ function initSportsEnhancements() {
     addSportBadges();
     addCatalogControls();
     addSportsInfo();
+    addFolderTabs();
     addFeaturedSquad();
   }, 1000);
 }
