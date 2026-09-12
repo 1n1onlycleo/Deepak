@@ -84,7 +84,9 @@ function addFolderTabs() {
   const labels = (category) => category.split(/[-_\s]+/).filter(Boolean).map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
   const current = pills.dataset.folderTabs;
   const signature = categories.join('|');
-  if (current === signature) return;
+  const expectedLabels = ['All', ...categories.map(labels)].join('|');
+  const visibleLabels = Array.from(pills.querySelectorAll('button')).map((button) => button.textContent.trim()).join('|');
+  if (current === signature && visibleLabels === expectedLabels) return;
 
   pills.dataset.folderTabs = signature;
   pills.innerHTML = '';
