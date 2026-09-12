@@ -1,3 +1,9 @@
+.hero {
+  background:
+    linear-gradient(90deg, #080808e8 0%, #08080899 48%, #08080840 100%),
+    url('/sports-hero.jpg') center / cover;
+}
+
 .matchday-line,
 .section-kicker {
   color: var(--trend-accent);

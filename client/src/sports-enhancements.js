@@ -107,6 +107,24 @@ function loadTopHeroImage() {
     .catch(console.error);
 }
 
+function loadFootballHeroBackdrop() {
+  const hero = document.querySelector('.hero');
+  if (!hero || hero.dataset.footballLoaded === 'true') return;
+
+  fetch('/api/products')
+    .then((response) => response.json())
+    .then((items) => {
+      const footballImage = items.find((item) => item.category === 'football');
+      if (!footballImage) return;
+
+      hero.style.backgroundImage = `linear-gradient(90deg, #080808f2 0%, #080808cf 45%, #08080870 100%), url("${footballImage.url}")`;
+      hero.style.backgroundPosition = 'center';
+      hero.style.backgroundSize = 'cover';
+      hero.dataset.footballLoaded = 'true';
+    })
+    .catch(console.error);
+}
+
 function addSportsInfo() {
   const shop = document.querySelector('#shop');
   const grid = shop?.querySelector('.grid');
