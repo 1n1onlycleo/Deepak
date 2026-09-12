@@ -5,10 +5,8 @@ const IMAGES_DIR = path.join(process.cwd(), 'server', 'images');
 const ALLOWED = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif']);
 
 function titleFromFileName(fileName) {
-  return fileName
-    .replace(/\.[^/.]+$/, '')
-    .replace(/[-_]+/g, ' ')
-    .replace(/\b\w/g, (char) => char.toUpperCase());
+  const match = fileName.match(/(?:jerysey|jersey)[-_]?(\d+)\.[^.]+$/i);
+  return match ? `Design ${match[1]}` : 'Design';
 }
 
 function toDataUrl(buffer, fileName) {
